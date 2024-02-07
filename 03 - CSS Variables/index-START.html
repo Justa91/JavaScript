@@ -32,7 +32,7 @@
       />
 
       <label for="base">Base Color</label>
-      <input id="base" type="color" name="base" value="#ffc600" />
+      <input id="base" type="color" name="base" value="#ebeb99" />
     </div>
 
     <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
@@ -42,7 +42,7 @@
       misc styles, nothing to do with CSS variables
     */
       :root {
-        --base: yellow;
+        --base: #ebeb99;
         --spacing: 20px;
         --blur: 10px;
       }
@@ -63,12 +63,32 @@
       .controls {
         margin-bottom: 50px;
       }
+      .hl {
+        color: var(--base);
+      }
 
       input {
         width: 100px;
       }
     </style>
 
-    <script></script>
+    <script>
+      const inputs = document.querySelectorAll("input");
+
+      function handleUpdate() {
+        console.log(this);
+        const suffix = this.dataset.sizing || "";
+
+        document.documentElement.style.setProperty(
+          `--${this.name}`,
+          this.value + suffix
+        );
+      }
+
+      inputs.forEach((input) =>
+        input.addEventListener(`mousemove`, handleUpdate)
+      );
+      inputs.forEach((input) => input.addEventListener(`change`, handleUpdate));
+    </script>
   </body>
 </html>
